@@ -1,0 +1,19 @@
+{
+  "name": "digital_store_backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Gabriel Martins/ Hellen Leitte",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  },
+  "dependencies": {
+    "express": "^4.21.1"
+  }
+}
