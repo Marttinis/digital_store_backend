@@ -3,9 +3,9 @@ class UsuarioModel{
 
     // vai fazer o papel do banco de dados
     static lista = [
-        {nome:'ribamar', login: 'admin'},
-        {nome:'Claudio', login: 'admin'},
-        {nome:'Gabriel', login: 'admin'},
+        {id: 1, nome:'ribamar', login: 'admin'},
+        {id: 2, nome:'Claudio', login: 'admin'},
+        {id: 3, nome:'Gabriel', login: 'admin'},
     ];
 
     static listar(){
@@ -13,7 +13,9 @@ class UsuarioModel{
 
     }
 
-    static consultarPorId(){
+    static consultarPorId(id){
+        const dados = UsuarioModel.lista.filter(item => item.id == id);
+        return dados;
 
     }
 
@@ -22,11 +24,19 @@ class UsuarioModel{
 
     }
 
-    static atualizar(){
+    static atualizar(id, data){
+        const indice = UsuarioModel.lista.findIndex(item => item.id == id);
+        UsuarioModel.lista[indice] = data;
+
 
     }
 
-    static deletar(){
+    static deletar(id){
+        const dados = UsuarioModel.lista.filter(item => item.id != id);
+        UsuarioModel.lista = dados;
+
+
+
         
     }
 

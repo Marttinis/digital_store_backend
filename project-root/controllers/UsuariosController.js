@@ -12,14 +12,16 @@ class UsuariosController {
 
     consultarPorId(request, response){
        
-        return UsuarioModel.consultarPorId()
+        const id = request.params.id;
+        const dados =  UsuarioModel.consultarPorId(id);
+        response.json(dados);
 
     }
 
     criar(request, response){
         const body = request.body;
         UsuarioModel.criar(body);
-        return response.status(200).json({
+        return response.status(201).json({
             message:"Usuario cadastrado com sucesso"
         });
 
@@ -27,13 +29,22 @@ class UsuariosController {
 
     atualizar(request, response){
        
-        return UsuarioModel.atualizar()
+        const id = request.params.id;
+        const body = request.body;
+        UsuarioModel.atualizar(id, body)
+        return response.json({
+            message:"Usuario atualizado com sucesso"
+        });
 
     }
 
     deletar(request, response){
      
-        return UsuarioModel.deletar()
+        const id = request.params.id;
+        UsuarioModel.deletar(id);
+        return response.json({
+            meesage: 'Usuario removido com sucesso'
+        })
 
     }
 
