@@ -1,5 +1,7 @@
 const express = require("express");
-const UsuariosRotas = require('./routes/UsuariosRotas');
+
+const RotasPrivadas = require("./routes/RotasPrivadas");
+const RotasPublicas = require("./routes/RotasPublicas");
 
 const host = 'localhost';
 const port = 3000;
@@ -12,7 +14,9 @@ app.get('/', (request,response) =>{
     return response.status(200).send("Server está funcinonado")
 })
 
-app.use(UsuariosRotas);
+app.use(RotasPrivadas);
+
+app.use(RotasPublicas);
 
 //ENDPOINTS
 app.get('/teste/:codigo', (request,response) =>{
