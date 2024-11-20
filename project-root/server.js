@@ -3,6 +3,8 @@ const express = require("express");
 const RotasPrivadas = require("./routes/RotasPrivadas");
 const RotasPublicas = require("./routes/RotasPublicas");
 
+require('dotenv').config();
+
 const host = 'localhost';
 const port = 3000;
 
@@ -14,9 +16,12 @@ app.get('/', (request,response) =>{
     return response.status(200).send("Server está funcinonado")
 })
 
-app.use(RotasPrivadas);
 
 app.use(RotasPublicas);
+
+app.use(RotasPrivadas);
+
+
 
 //ENDPOINTS
 app.get('/teste/:codigo', (request,response) =>{
