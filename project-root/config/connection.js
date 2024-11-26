@@ -10,3 +10,5 @@ const connection = new Sequelize({
     password: "root",
     port: "3306"
 })
+
+module.exports = connection;
