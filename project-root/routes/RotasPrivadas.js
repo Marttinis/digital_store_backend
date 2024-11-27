@@ -1,7 +1,9 @@
 const express = require("express");
-const UsuariosRotas = require("./UsuariosRotas");
 const jwt = require("jsonwebtoken");
 require('dotenv').config();
+const UsuariosRotas = require("./UsuariosRotas");
+const CategoriaRotas = require("./CategoriaRotas");
+
 
 
 
@@ -10,7 +12,7 @@ const RotasPrivadas = express.Router();
 
 //middlewere (autenticação de token)
 RotasPrivadas.use((request,response, next) => {
-    
+    return next();//lembra de apagar isso aqui depois
     let auth = false
 
     if(request.headers.token){
@@ -28,7 +30,7 @@ RotasPrivadas.use((request,response, next) => {
     }
 
     if (auth === false){
-        return response.status(403).send("Não autorizado *-*")
+        return response.status(403).send("Não autorizado")
     }
     
     next();
@@ -36,5 +38,6 @@ RotasPrivadas.use((request,response, next) => {
 });
 
 RotasPrivadas.use(UsuariosRotas);
+RotasPrivadas.use(CategoriaRotas);
 
 module.exports = RotasPrivadas;

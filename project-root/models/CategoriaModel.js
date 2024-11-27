@@ -6,7 +6,7 @@ const CategoriaModel = connection.define(
     "CategoriaModel", {
         
         name:{
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: false
         },
         slug:{
@@ -19,8 +19,11 @@ const CategoriaModel = connection.define(
             defaultValue: false
 
         }
+    },{
+        tableName: "Categoria"
     }
 )
+
 
 module.exports = CategoriaModel;
 
