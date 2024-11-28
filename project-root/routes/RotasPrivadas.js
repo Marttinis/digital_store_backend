@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 require('dotenv').config();
 const UsuariosRotas = require("./UsuariosRotas");
 const CategoriaRotas = require("./CategoriaRotas");
+const ProdutoRotas = require("./ProdutoRotas");
 
 
 
@@ -39,5 +40,7 @@ RotasPrivadas.use((request,response, next) => {
 
 RotasPrivadas.use(UsuariosRotas);
 RotasPrivadas.use(CategoriaRotas);
+RotasPrivadas.use(ProdutoRotas);
+
 
 module.exports = RotasPrivadas;
