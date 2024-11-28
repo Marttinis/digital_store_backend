@@ -39,11 +39,34 @@ class UsuariosController {
     }
 
     async criar(request, response) {
-        const body = request.body;
-        await UsuarioModel.create(body);
-        return response.status(201).json({
-            message: "Usuario cadastrado com sucesso"
-        });
+        try {
+
+            const body = request.body;
+
+            //Validação dos campos
+            if (!body.firstname || !body.surname || !body.email || !body.password) {
+                return response.status(400).json({
+                    message: "Todos os campos obrigatórios devem ser preenchidos."
+                });
+            }
+
+            //Criação do usuario
+            const usuarioCriado = await UsuarioModel.create(body);
+
+            return response.status(201).json({
+                message: "Usuario cadastrado com sucesso",
+                usuario: usuarioCriado // mostra os dados do usuario criado
+            });
+
+
+        } catch(error) {
+            console.error(error);
+            return response.status(400).json({
+                message: "Erro ao cadastrar Usuário",
+                error: error.message
+            });
+
+        }
 
     }
 
