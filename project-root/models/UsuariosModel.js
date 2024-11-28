@@ -19,6 +19,7 @@ const UsuariosModel = connection.define("UsuariosModel",
         email: {
             type: DataTypes.STRING,
             allowNull: false
+            // unique: true,  // Evita e-mails duplicados
         },
 
         password: { //Precisa usar o bcrypt para criptografar a senha
