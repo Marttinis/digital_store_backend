@@ -15,7 +15,7 @@ RotasPublicas.post('/login', async (request, response) => {
 
     if (dados) {
         const token = jwt.sign(dados, process.env.APP_KEY_TOKEN, { expiresIn: '1h' })
-        return response.json({
+        return response.status(200).json({
             token: token
         })
     }

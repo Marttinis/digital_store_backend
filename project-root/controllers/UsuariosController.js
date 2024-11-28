@@ -108,17 +108,34 @@ class UsuariosController {
         }
     }
 
-    deletar(request, response) {
+    async deletar(request, response) {
 
         const id = request.params.id;
-        UsuarioModel.destroy({ where: { id } });
-        return response.status(204).json({
-            meesage: 'Usuario removido com sucesso'
-        })
 
-    }
+        try {
+            // Tenta excluir o usuário
+            const result = await UsuarioModel.destroy({ where: { id } });
+    
+            // Se não encontrou nenhum usuário para excluir, retorna erro 404
+            if (result === 0) {
+                return response.status(404).json({
+                    message: 'Usuário não encontrado.'
+                });
+            }
+    
+            // Se a exclusão for bem-sucedida, retorna status 204
+            return response.status(204).json();
+    
+        } catch (error) {
+            console.error(error);
+            return response.status(500).json({
+                message: 'Erro ao tentar remover usuário',
+                error: error.message
+            });
+        }
 
 
+ }
 }
 
 module.exports = UsuariosController;
