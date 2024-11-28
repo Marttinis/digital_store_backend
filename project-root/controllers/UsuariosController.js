@@ -59,9 +59,9 @@ class UsuariosController {
             });
 
 
-        } catch(error) {
+        } catch (error) {
             console.error(error);
-            return response.status(400).json({
+            return response.status(404).json({
                 message: "Erro ao cadastrar Usuário",
                 error: error.message
             });
@@ -71,14 +71,41 @@ class UsuariosController {
     }
 
     async atualizar(request, response) {
+        try {
 
-        const id = request.params.id;
-        const body = request.body;
-        await UsuarioModel.update(body, { where: { id } })
-        return response.json({
-            message: "Usuario atualizado com sucesso"
-        });
+            const id = request.params.id;
+            const body = request.body;
 
+            //validação dos campos
+            if (!body.firstname || !body.surname || !body.email || !body.password) {
+                return response.status(400).json({
+                    message: "Todos os campos obrigatórios devem ser preenchidos corretamente."
+                });
+            }
+
+            //atualização do cadastro
+            const [rowsUpdated] = await UsuarioModel.update(body, { where: { id } })
+
+
+            // Verificar se o registro foi encontrado
+            if (rowsUpdated === 0) {
+                return response.status(404).json({
+                    message: "Usuário não encontrado."
+                });
+            }
+
+            //retorno de sucesso
+            return response.status(204).json();
+
+
+        } catch (error) {
+            console.error(error);
+            return response.status(500).json({
+                message: "Erro ao atualizar Usuário",
+                error: error.message
+            });
+
+        }
     }
 
     deletar(request, response) {

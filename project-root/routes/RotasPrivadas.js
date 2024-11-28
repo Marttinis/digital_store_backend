@@ -13,7 +13,7 @@ const RotasPrivadas = express.Router();
 
 //middlewere (autenticação de token)
 RotasPrivadas.use((request,response, next) => {
-    return next();//lembra de apagar isso aqui depois
+    // return next();//lembra de apagar isso aqui depois
     let auth = false
 
     if(request.headers.token){
