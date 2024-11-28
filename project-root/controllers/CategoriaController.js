@@ -8,11 +8,11 @@ class CategoriaController{
 
     }
 
-    criar(request, response){
+    async criar(request, response){
         const body = request.body;
-        CategoriaModel.create(body)
+        await CategoriaModel.create(body)
         return response.status(201).json({
-            message:"Categoria cadastrada com sucesso"
+            message:"Categoria adicionada com sucesso"
         });
 
     }

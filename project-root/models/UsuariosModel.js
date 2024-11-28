@@ -1,53 +1,46 @@
+// const bcrypt = require('bcrypt');
+const connection = require('../config/connection');
+const { DataTypes } = require("sequelize");
 
-class UsuarioModel{
+const UsuariosModel = connection.define("UsuariosModel",
+    {
+        firstname: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
 
-    // vai fazer o papel do banco de dados
-    static lista = [
-        {id: 1, nome:'ribamar', login: 'admin', senha:'12345'},
-        {id: 2, nome:'Claudio', login: 'admin', senha:'54321'},
-        {id: 3, nome:'Gabriel', login: 'admin', senha:'67890'},
-    ];
+        surname: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
 
-    static authenticate(login, senha){
-        console.log(login, senha);
-        
-        const indice = UsuarioModel.lista.findIndex(item => item.login == login && item.senha == senha);
-        return UsuarioModel.lista[indice];
+        email: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
 
+        password: { //Precisa usar o bcrypt para criptografar a senha
+            type: DataTypes.STRING,
+            allowNull: false
+        }
+
+    },{
+        tableName: "Usuarios",
+        // hooks: {
+        //     // Hook para gerar hash antes de criar o usuário
+        //     beforeCreate: async (user) => {
+        //       const saltRounds = 10;
+        //       user.password = await bcrypt.hash(user.password, saltRounds);
+        //     },
+        //     // Hook para hash antes de atualizar o usuário
+        //     beforeUpdate: async (user) => {
+        //       if (user.changed('password')) {
+        //         const saltRounds = 10;
+        //         user.password = await bcrypt.hash(user.password, saltRounds);
+        //       }
+        //     },
+        //   },
     }
-    static listar(){
-        return UsuarioModel.lista;
+)
 
-    }
-
-    static consultarPorId(id){
-        const dados = UsuarioModel.lista.filter(item => item.id == id);
-        return dados;
-
-    }
-
-    static criar(data){
-        UsuarioModel.lista.push(data);
-
-    }
-
-    static atualizar(id, data){
-        const indice = UsuarioModel.lista.findIndex(item => item.id == id);
-        UsuarioModel.lista[indice] = data;
-
-
-    }
-
-    static deletar(id){
-        const dados = UsuarioModel.lista.filter(item => item.id != id);
-        UsuarioModel.lista = dados;
-
-
-
-        
-    }
-
-
-}
-
-module.exports = UsuarioModel;
+module.exports = UsuariosModel;
