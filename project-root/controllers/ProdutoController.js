@@ -1,53 +1,141 @@
 const ProdutoModel = require('../models/ProdutoModel');
 
-class ProdutoController{
 
-    async listar(request, response){
+class ProdutoController {
+
+    async listar(request, response) {
         const dados = await ProdutoModel.findAll();
         return response.json(dados);
 
     }
 
-    async consultarPorId(request, response){
-       
+    async consultarPorId(request, response) {
+
+        try {
+            const id = request.params.id;
+            //busca o usuario pela ID
+            const dados = await ProdutoModel.findByPk(id);
+
+            // Verifica se o usuário foi encontrado
+            if (!dados) {
+                return response.status(404).json({
+                    message: "produto não encontrado."
+                });
+            }
+
+            // retorna os dados do usuario
+            response.json(dados);
+
+
+        } catch (error) {
+            console.error(error);
+            return response.status(500).json({
+                message: "Erro ao buscar Categoria",
+                error: error.message
+            });
+
+        }
+
+    }
+
+    async criar(request, response) {
+        try {
+
+            const body = request.body;
+
+            //Validação dos campos
+            if (!body.name || !body.slug || !body.price || !body.price_with_discount) {
+                return response.status(400).json({
+                    message: "Todos os campos obrigatórios devem ser preenchidos."
+                });
+            }
+
+            //Criação da
+            await ProdutoModel.create(body);
+
+            return response.status(200).json({
+                message: "Produto cadastrado com sucesso",
+              
+            });
+
+
+        } catch (error) {
+            console.error(error);
+            return response.status(404).json({
+                message: "Erro ao cadastrar Produto",
+                error: error.message
+            });
+
+        }
+
+    }
+
+    async atualizar(request, response) {
+        try {
+
+            const id = request.params.id;
+            const body = request.body;
+
+            //validação dos campos
+            if (!body.name || !body.slug || !body.price || !body.price_with_discount) {
+                return response.status(400).json({
+                    message: "Todos os campos obrigatórios devem ser preenchidos corretamente."
+                });
+            }
+
+            //atualização do cadastro
+            const [rowsUpdated] = await ProdutoModel.update(body, { where: { id } })
+
+
+            // Verificar se o registro foi encontrado
+            if (rowsUpdated === 0) {
+                return response.status(404).json({
+                    message: "Produto não encontrado."
+                });
+            }
+
+            //retorno de sucesso
+            return response.status(204).json();
+
+
+        } catch (error) {
+            console.error(error);
+            return response.status(500).json({
+                message: "Erro ao atualizar Produto",
+                error: error.message
+            });
+
+        }
+    }
+
+    async deletar(request, response) {
+
         const id = request.params.id;
-        const dados = await ProdutoModel.findByPk(id);
-        response.json(dados);
 
-    }
-
-    async criar(request, response){
-        const body = request.body;
-        await ProdutoModel.create(body);
-        return response.status(201).json({
-            message:"Usuario cadastrado com sucesso"
-        });
-
-    }
-
-    async atualizar(request, response){
-       
-        const id = request.params.id;
-        const body = request.body;
-        await ProdutoModel.update(id, body)
-        return response.json({
-            message:"Usuario atualizado com sucesso"
-        });
-
-    }
-
-    deletar(request, response){
-     
-        const id = request.params.id;
-        ProdutoModel.destroy(id);
-        return response.status(204).json({
-            meesage: 'Usuario removido com sucesso'
-        })
-
-    }
+        try {
+            // Tenta excluir o usuário
+            const result = await ProdutoModel.destroy({ where: { id } });
+    
+            // Se não encontrou nenhum usuário para excluir, retorna erro 404
+            if (result === 0) {
+                return response.status(404).json({
+                    message: 'Produto não encontrado.'
+                });
+            }
+    
+            // Se a exclusão for bem-sucedida, retorna status 204
+            return response.status(204).json();
+    
+        } catch (error) {
+            console.error(error);
+            return response.status(500).json({
+                message: 'Erro ao tentar remover Produto',
+                error: error.message
+            });
+        }
 
 
-
+ }
 }
 
 module.exports = ProdutoController;

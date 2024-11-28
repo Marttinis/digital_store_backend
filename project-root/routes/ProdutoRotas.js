@@ -6,14 +6,14 @@ const ProdutoRotas = express.Router();
 const produtoController = new ProdutoController();
 
 //CRUD
-ProdutoRotas.get('/users', produtoController.listar)
+ProdutoRotas.get('/produto', produtoController.listar)
 
-ProdutoRotas.get('/users/:id', produtoController.consultarPorId)
+ProdutoRotas.get('/produto/:id', produtoController.consultarPorId)
 
-ProdutoRotas.post('/users', produtoController.criar)
+ProdutoRotas.post('/produto', produtoController.criar)
 
-ProdutoRotas.put('/users/:id', produtoController.atualizar)
+ProdutoRotas.put('/produto/:id', produtoController.atualizar)
 
-ProdutoRotas.delete('/users/:id', produtoController.deletar)
+ProdutoRotas.delete('/produto/:id', produtoController.deletar)
 
 module.exports = ProdutoRotas;
