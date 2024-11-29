@@ -1,6 +1,6 @@
 const express = require("express");
-const RotasPrivadas = require("./routes/RotasPrivadas");
-const RotasPublicas = require("./routes/RotasPublicas");
+const RotasPrivadas = require("../routes/RotasPrivadas");
+const RotasPublicas = require("../routes/RotasPublicas");
 
 const app = express();
 

@@ -1,5 +1,5 @@
 require('dotenv').config(); // Carrega variáveis de ambiente
-const app = require("./app"); // Importa a configuração do app
+const app = require("../src/app"); // Importa a configuração do app
 
 // Configuração do servidor
 const host = process.env.HOST || "localhost";
