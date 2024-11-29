@@ -22,7 +22,7 @@ class ImgDoProdutoController {
                 });
             }
 
-            //Criação da
+            
             await ImgDoProdutoModel.create(body);
 
             return response.status(200).json({

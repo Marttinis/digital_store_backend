@@ -10,7 +10,8 @@ const OpcaoDoProdutoModel= connection.define("OpcaoDoProdutoModel",{
         references: {
             model: ProdutoModel,
             key: 'id'
-        }
+        },
+        onDelete: 'CASCADE'
     },
 
     title: {

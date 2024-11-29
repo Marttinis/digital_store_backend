@@ -1,10 +1,18 @@
 const ProdutoModel = require('../models/ProdutoModel');
-
+const ImgDoProdutoModel = require('../models/ImgDoProdutoModel');
+const OpcaoDoProdutoModel = require('../models/OpcaoDoProdutoModel');
 
 class ProdutoController {
 
     async listar(request, response) {
-        const dados = await ProdutoModel.findAll();
+        //o hasone informa que o produto tem uma imagem e informa que tem uma chave instrangeira
+        ProdutoModel.hasOne(ImgDoProdutoModel, {foreignKey: "product_id"})
+
+        //o include inclui as informações da tabela de imagens do produto
+        const dados = await ProdutoModel.findAll({
+            include: ImgDoProdutoModel,
+        
+        });
         return response.json(dados);
 
     }
