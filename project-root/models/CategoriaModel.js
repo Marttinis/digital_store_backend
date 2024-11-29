@@ -20,6 +20,7 @@ const CategoriaModel = connection.define(
 
         }
     },{
+        modelName: "CategoriaModel",
         tableName: "Categoria"
     }
 )

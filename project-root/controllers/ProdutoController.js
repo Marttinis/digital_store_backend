@@ -1,10 +1,20 @@
 const ProdutoModel = require('../models/ProdutoModel');
+const CategoriaModel = require('../models/CategoriaModel');
 const ImgDoProdutoModel = require('../models/ImgDoProdutoModel');
 const OpcaoDoProdutoModel = require('../models/OpcaoDoProdutoModel');
+const ProdutoCategoriaModel = require('../models/ProdutoCategoriaModel');
+
 
 
 ProdutoModel.hasMany(ImgDoProdutoModel, { foreignKey: "product_id", as: "imagens" })
 ProdutoModel.hasOne(OpcaoDoProdutoModel, { foreignKey: "product_id", as: "opcao" })
+ProdutoModel.belongsToMany(CategoriaModel, {
+    through: ProdutoCategoriaModel,
+    foreignKey: "product_id",
+    otherKey: "category_id",
+    as: 'categorias'
+
+});
 
 
 class ProdutoController {
@@ -19,6 +29,7 @@ class ProdutoController {
             include: [
                 { model: ImgDoProdutoModel, as: 'imagens' },
                 { model: OpcaoDoProdutoModel, as: 'opcao' },
+                { model: CategoriaModel, as: "categorias"}
             ],
 
 
@@ -40,6 +51,7 @@ class ProdutoController {
                 include: [
                     { model: ImgDoProdutoModel, as: "imagens" },
                     { model: OpcaoDoProdutoModel, as: 'opcao' },
+                    { model: CategoriaModel, as: "categorias"}
 
                 ],
 
@@ -70,9 +82,11 @@ class ProdutoController {
 
     async criar(request, response) {
         try {
+            
+            
 
             //Criando o produto junto com a imagem
-            const body = request.body;
+            const {categoria, ...body}  = request.body;
 
             //Validação dos campos
             if (!body.name || !body.slug || !body.price || !body.price_with_discount) {
@@ -81,11 +95,15 @@ class ProdutoController {
                 });
             }
 
-            await ProdutoModel.create(body, { 
+            let produto = await ProdutoModel.create(body, { 
                 include:[
-                    {model: ImgDoProdutoModel, as: "imagens"}
+                    {model: ImgDoProdutoModel, as: "imagens"},
+                    {model: OpcaoDoProdutoModel, as: "opcao"},
+                    {through: ProdutoCategoriaModel, model: CategoriaModel, as: "categorias"}
 
             ] });
+
+            produto.setCategorias(categoria)
 
             return response.status(200).json({
                 message: "Produto cadastrado com sucesso",
