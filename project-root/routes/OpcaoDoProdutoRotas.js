@@ -6,9 +6,9 @@ const OpcaoDoProdutoRotas = express.Router();
 
 const opcaoDoProdutoController = new OpcaoDoProdutoController();
 
-OpcaoDoProdutoRotas.get('/imagem', opcaoDoProdutoController.listar);
+OpcaoDoProdutoRotas.get('/opcao', opcaoDoProdutoController.listar);
 
-OpcaoDoProdutoRotas.post('/imagem', opcaoDoProdutoController.criar);
+OpcaoDoProdutoRotas.post('/opcao', opcaoDoProdutoController.criar);
 
 
 module.exports = OpcaoDoProdutoRotas;

@@ -16,7 +16,7 @@ class OpcaoDoProdutoController {
             const body = request.body;
 
             //Validação dos campos
-            if (!body.product_id || !body.title || body.values) {
+            if ( !body.product_id || !body.title || !body.values) {
                 return response.status(400).json({
                     message: "Todos os campos obrigatórios devem ser preenchidos."
                 });
