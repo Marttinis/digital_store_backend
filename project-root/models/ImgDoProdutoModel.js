@@ -13,8 +13,9 @@ const ImgDoProdutoModel = connection.define("ImgDoProdutoModel", {
     },
 
     enabled: {
-        type: DataTypes.BOOLEAN(0),
-        allowNull: true
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+        defaultValue: 0
     },
 
     path: {
@@ -23,7 +24,7 @@ const ImgDoProdutoModel = connection.define("ImgDoProdutoModel", {
     }
 
 }, {
-    tableName: "Imagem do Produto",
+    tableName: "Imagem_do_Produto",
     timestamps: false
 }
 )

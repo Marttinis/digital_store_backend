@@ -25,7 +25,7 @@ const ProdutoCategoriaModel= connection.define("ProdutoCategoriaModel",{
     }
 
 },{
-    tableName: "Produto e Categoria",
+    tableName: "Produto_e_Categoria",
     timestamps: false,
     id: false
 }

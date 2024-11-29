@@ -14,7 +14,7 @@ const OpcaoDoProdutoModel= connection.define("OpcaoDoProdutoModel",{
     },
 
     title: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(45),
         allowNull: false
     },
 
@@ -46,7 +46,7 @@ const OpcaoDoProdutoModel= connection.define("OpcaoDoProdutoModel",{
 
 
 },{
-    tableName: "Opcao do Produto",
+    tableName: "Opcao_do_Produto",
     timestamps: false
 }
 )

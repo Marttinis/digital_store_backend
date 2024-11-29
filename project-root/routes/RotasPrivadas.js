@@ -4,6 +4,7 @@ const authMiddleware = require("../middlewares/authMiddleware")
 const UsuariosRotas = require("./UsuariosRotas");
 const CategoriaRotas = require("./CategoriaRotas");
 const ProdutoRotas = require("./ProdutoRotas");
+const ImgDoProdutoRotas = require("./ImgDoProdutoRotas");
 
 
 
@@ -18,6 +19,7 @@ RotasPrivadas.use(authMiddleware)
 RotasPrivadas.use(UsuariosRotas);
 RotasPrivadas.use(CategoriaRotas);
 RotasPrivadas.use(ProdutoRotas);
+RotasPrivadas.use(ImgDoProdutoRotas);
 
 
 module.exports = RotasPrivadas;
