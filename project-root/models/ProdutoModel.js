@@ -4,8 +4,9 @@ const { DataTypes } = require("sequelize");
 const ProdutoModel = connection.define(
     "ProdutoModel", {
         enabled: {
-            type: DataTypes.BOOLEAN(0),
-            allowNull: true
+            type: DataTypes.BOOLEAN,
+            allowNull: true,
+            defaultValue: 0
         },
     
         name: {
@@ -21,12 +22,14 @@ const ProdutoModel = connection.define(
         use_in_menu:{
             type: DataTypes.BOOLEAN,
             allowNull: true,
-            defaultValue: false
+            defaultValue: 0
         },
 
         stock: {
-            type: DataTypes.INTEGER(0),
-            allowNull: true
+            type: DataTypes.INTEGER,
+            allowNull: true,
+            defaultValue: 0
+
 
         },
 
