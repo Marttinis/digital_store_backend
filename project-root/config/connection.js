@@ -1,7 +1,8 @@
 const {Sequelize} = require("sequelize");
 
 
-//conexao com o banco de dados 
+//conexao com o banco de dados
+//.env precisa colocar aqui pra esconder a senha 
 const connection = new Sequelize({
     dialect: 'mysql',
     database: "blog",
