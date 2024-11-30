@@ -4,7 +4,9 @@ const UsuarioModel = require('../models/UsuariosModel');
 class UsuariosController {
 
     async listar(request, response) {
-        const dados = await UsuarioModel.findAll();
+        const dados = await UsuarioModel.findAll({
+            attributes: ["firstname", "surname", "email"] 
+        });
         return response.json(dados);
 
     }
@@ -14,7 +16,9 @@ class UsuariosController {
         try {
             const id = request.params.id;
             //busca o usuario pela ID
-            const dados = await UsuarioModel.findByPk(id);
+            const dados = await UsuarioModel.findByPk(id, {
+               attributes: ["firstname", "surname", "email"] 
+            });
 
             // Verifica se o usuário foi encontrado
             if (!dados) {
@@ -51,11 +55,11 @@ class UsuariosController {
             }
 
             //Criação do usuario
-            const usuarioCriado = await UsuarioModel.create(body);
+            await UsuarioModel.create(body);
 
             return response.status(201).json({
                 message: "Usuario cadastrado com sucesso",
-                usuario: usuarioCriado // mostra os dados do usuario criado
+                
             });
 
 

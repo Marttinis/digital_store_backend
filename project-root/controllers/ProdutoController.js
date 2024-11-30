@@ -48,10 +48,11 @@ class ProdutoController {
             const id = request.params.id;
             //busca o usuario pela ID
             const dados = await ProdutoModel.findByPk(id, {
+                attributes: ["name", "slug", "stock", "description", "price", "price_with_discount"],
                 include: [
-                    { model: ImgDoProdutoModel, as: "imagens" },
-                    { model: OpcaoDoProdutoModel, as: 'opcao' },
-                    { model: CategoriaModel, as: "categorias"}
+                    { model: ImgDoProdutoModel, as: "imagens", attributes: ["enabled" , "path"] },
+                    { model: OpcaoDoProdutoModel, as: 'opcao', attributes:["title", "shape", "radius", "type", "values"] },
+                    { model: CategoriaModel, as: "categorias", attributes:["name", "slug"]}
 
                 ],
 
@@ -65,7 +66,7 @@ class ProdutoController {
                 });
             }
 
-            // retorna os dados do usuario
+            // retorna os dados do produto
             response.json(dados);
 
 

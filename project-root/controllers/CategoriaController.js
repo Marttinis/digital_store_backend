@@ -4,7 +4,9 @@ const CategoriaModel = require('../models/CategoriaModel');
 class CategoriaController {
 
     async listar(request, response) {
-        const dados = await CategoriaModel.findAll();
+        const dados = await CategoriaModel.findAll({
+            attributes:["name", "slug", "use_in_menu"]
+        });
         return response.json(dados);
 
     }
@@ -14,7 +16,9 @@ class CategoriaController {
         try {
             const id = request.params.id;
             //busca o usuario pela ID
-            const dados = await CategoriaModel.findByPk(id);
+            const dados = await CategoriaModel.findByPk(id, {
+                attributes:["name", "slug", "use_in_menu"]
+            });
 
             // Verifica se o usuário foi encontrado
             if (!dados) {
