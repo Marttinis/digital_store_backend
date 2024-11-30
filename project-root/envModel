@@ -1,2 +1,11 @@
 APP_KEY_TOKEN = 'DJI3IU34I4OIH34@#'
 PASSWORD_DATABASE = '12345'
+
+
+# conexao com o banco de dados
+DB_DIALECT = 'msql'
+DB_DATABASE = 'blog'
+DB_HOST = 'localhost'
+DB_USER = 'root'
+DB_PASS = 'root'
+DB_PORT = '3306'
