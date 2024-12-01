@@ -1,6 +1,6 @@
 const UsuarioModel = require("../models/UsuariosModel");
 
-class AuthController {
+class LoginController {
     async login({ email, password }) {
         try {
             // Adicione log para verificar se o email e senha foram recebidos corretamente
@@ -21,4 +21,4 @@ class AuthController {
     }
 }
 
-module.exports = AuthController;
+module.exports = LoginController;

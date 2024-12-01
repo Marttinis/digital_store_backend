@@ -18,7 +18,7 @@ connection.authenticate()
    .then(() =>{
       console.log('Conexão estabelecida com sucesso.');
    })
-   .catch(()=>{
+   .catch( err =>{
       console.error('Não foi possivel se conectar ao banco de dados', err)
    });
 

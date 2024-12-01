@@ -1,20 +1,21 @@
 const express = require("express");
+const authMiddleware = require("../middlewares/authMiddleware")
 
-const UsuariosController = require('../controllers/UsuariosController')
+const UsuariosController = require('../controllers/UsuariosController');
 
 const UsuariosRotas = express.Router();
 
 const usuariosController = new UsuariosController();
 
 //CRUD
-UsuariosRotas.get('/users', usuariosController.listar)
+UsuariosRotas.get('/search', usuariosController.listar)
 
-UsuariosRotas.get('/users/:id', usuariosController.consultarPorId)
+UsuariosRotas.get('/:id', authMiddleware, usuariosController.consultarPorId)
 
-UsuariosRotas.post('/users', usuariosController.criar)
+UsuariosRotas.post('/', authMiddleware, usuariosController.criar)
 
-UsuariosRotas.put('/users/:id', usuariosController.atualizar)
+UsuariosRotas.put('/:id', authMiddleware, usuariosController.atualizar)
 
-UsuariosRotas.delete('/users/:id', usuariosController.deletar)
+UsuariosRotas.delete('/:id', authMiddleware, usuariosController.deletar)
 
 module.exports = UsuariosRotas;

@@ -1,4 +1,6 @@
 const express = require("express");
+const authMiddleware = require("../middlewares/authMiddleware")
+
 const ProdutoController = require('../controllers/ProdutoController');
 
 const ProdutoRotas = express.Router();
@@ -6,14 +8,14 @@ const ProdutoRotas = express.Router();
 const produtoController = new ProdutoController();
 
 //CRUD
-ProdutoRotas.get('/produto', produtoController.listar)
+ProdutoRotas.get('/search', produtoController.listar)
 
-ProdutoRotas.get('/produto/:id', produtoController.consultarPorId)
+ProdutoRotas.get('/:id', authMiddleware, produtoController.consultarPorId)
 
-ProdutoRotas.post('/produto', produtoController.criar)
+ProdutoRotas.post('/', authMiddleware, produtoController.criar)
 
-ProdutoRotas.put('/produto/:id', produtoController.atualizar)
+ProdutoRotas.put('/:id', authMiddleware, produtoController.atualizar)
 
-ProdutoRotas.delete('/produto/:id', produtoController.deletar)
+ProdutoRotas.delete('/:id', authMiddleware, produtoController.deletar)
 
 module.exports = ProdutoRotas;

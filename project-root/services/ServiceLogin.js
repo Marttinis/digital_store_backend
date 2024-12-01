@@ -1,16 +1,16 @@
 const express = require("express");
-const AuthController = require("../controllers/AuthController");
+const LoginController = require("../controllers/LoginController");
 const jwt = require("jsonwebtoken");
 require('dotenv').config();
 
 
-const RotasPublicas = express.Router();
+const ServiceLogin = express.Router();
 
 
-RotasPublicas.post('/login', async (request, response) => {
+ServiceLogin.post('/login', async (request, response) => {
 
     const body = request.body;
-    const auth = new AuthController();
+    const auth = new LoginController();
     const dados = await auth.login(body);
 
     if (dados) {
@@ -25,4 +25,4 @@ RotasPublicas.post('/login', async (request, response) => {
 
 })
 
-module.exports = RotasPublicas;
+module.exports = ServiceLogin;
