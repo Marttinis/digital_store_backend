@@ -1,21 +1,35 @@
 const express = require("express");
 const authMiddleware = require("../middlewares/authMiddleware")
 
-const CategoriaController = require('../controllers/CategoriaController');
+const {controllerGetCategoria,
+    controllerGetCategoriaId,
+    controllerPostCategoria,
+    controllerPutCategoria,
+    controllerDeleteCategoria} = require('../controllers/CategoriaController');
 
 const CategoriaRotas = express.Router();
 
-const categoriaController = new CategoriaController();
 
-CategoriaRotas.get('/search', categoriaController.listar);
 
-CategoriaRotas.get('/:id', authMiddleware, categoriaController.consultarPorId);
+CategoriaRotas.get('/search', (req,res)=>{
+    controllerGetCategoria(req,res)
+});
 
-CategoriaRotas.post('/', authMiddleware, categoriaController.criar);
+CategoriaRotas.get('/:id', authMiddleware,(req,res)=>{
+    controllerGetCategoriaId(req,res)
+});
 
-CategoriaRotas.put('/:id', authMiddleware, categoriaController.atualizar);
+CategoriaRotas.post('/', authMiddleware, (req,res)=>{
+    controllerPostCategoria(req,res)
+});
 
-CategoriaRotas.delete('/:id', authMiddleware, categoriaController.deletar);
+CategoriaRotas.put('/:id', authMiddleware, (req,res)=>{
+    controllerPutCategoria(req,res)
+});
+
+CategoriaRotas.delete('/:id', authMiddleware, (req,res)=>{
+    controllerDeleteCategoria(req,res)
+});
 
 
 

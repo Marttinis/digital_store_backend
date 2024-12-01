@@ -10,8 +10,6 @@ const {controllerListar,
 
 const UsuariosRotas = express.Router();
 
-// const usuariosController = new UsuariosController();
-
 //CRUD
 UsuariosRotas.get('/search', (req, res)=>{
     controllerListar(req,res)
