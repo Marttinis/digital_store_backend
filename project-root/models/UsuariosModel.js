@@ -47,26 +47,6 @@ const UsuariosModel = connection.define("UsuariosModel",
 );
 
 
-UsuariosModel.authenticate = async function (email, password) {
-    const usuario = await this.findOne({ where: { email } });
 
-    if (!usuario) {
-        console.log("usuario não encontrado!")
-        throw new Error("Credenciais inválidas");
-        
-    }
-
-    console.log("Usuário encontrado:", usuario);
-    const senhaValida = bcrypt.compare(password, usuario.password);
-    if (!senhaValida) {
-        console.log("Senha inválida!");
-        throw new Error("Senha inválida");
-    }
-
-
-
-    return {firstname: usuario.firstname, email: usuario.email};
-     
-};
 
 module.exports = UsuariosModel;

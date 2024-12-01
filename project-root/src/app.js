@@ -1,6 +1,6 @@
 const express = require("express");
-const ServiceLogin = require("../services/ServiceLogin");
 const UsuariosRotas = require("../routes/UsuariosRotas");
+const LoginRotas = require("../routes/LoginRotas");
 const ProdutoRotas = require("../routes/ProdutoRotas");
 const CategoriaRotas = require("../routes/CategoriaRotas");
 const cors = require('cors');
@@ -19,9 +19,8 @@ app.get('/', (req, res) => {
 });
 
 // Rotas públicas e privadas
-app.use(ServiceLogin);
 app.use('/v1/usuarios', UsuariosRotas)
-// app.use('/v1/user', LoginRotas)
+app.use('/v1/user', LoginRotas)
 app.use('/v1/produtos', ProdutoRotas)
 app.use('/v1/categorias', CategoriaRotas)
 

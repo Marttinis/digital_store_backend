@@ -1,22 +1,23 @@
-const UsuarioModel = require("../models/UsuariosModel");
+const ServiceLogin = require("../services/ServiceLogin");
 
 class LoginController {
     async login({ email, password }) {
-        try {
-            // Adicione log para verificar se o email e senha foram recebidos corretamente
-            console.log("Dados recebidos para autenticação:", { email, password });
 
+        try {
+            
             // Verificar se o usuário foi autenticado com sucesso
-            const usuario = await UsuarioModel.authenticate(email, password);
+            const usuario = await ServiceLogin.authenticate({email, password});
 
             // Verificar se a resposta do authenticate é válida
-            console.log("Usuário autenticado:", usuario); // Adicione o log para depuração
+            console.log("Usuário autenticado:");
 
             // Retorne apenas os dados relevantes para o JWT
             return { firstname: usuario.firstname, email: usuario.email };
+
+
         } catch (error) {
             console.error("Erro na autenticação:", error.message); // Adicione o log do erro
-            throw new Error("Credenciais inválidas");
+            throw new Error("Credenciais inválidas poha");
         }
     }
 }

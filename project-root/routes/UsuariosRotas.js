@@ -12,7 +12,7 @@ UsuariosRotas.get('/search', usuariosController.listar)
 
 UsuariosRotas.get('/:id', authMiddleware, usuariosController.consultarPorId)
 
-UsuariosRotas.post('/', authMiddleware, usuariosController.criar)
+UsuariosRotas.post('/' , usuariosController.criar)
 
 UsuariosRotas.put('/:id', authMiddleware, usuariosController.atualizar)
 

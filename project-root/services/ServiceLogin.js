@@ -1,28 +1,32 @@
-const express = require("express");
-const LoginController = require("../controllers/LoginController");
-const jwt = require("jsonwebtoken");
-require('dotenv').config();
+const UsuariosModel = require('../models/UsuariosModel');
+const bcrypt = require('bcrypt');
 
+class ServiceLogin {
+    async authenticate({ email, password }) {
+        try {
+            // Buscar o usuário pelo e-mail
+            const usuario = await UsuariosModel.findOne({ where: { email } });
 
-const ServiceLogin = express.Router();
+            // Verificar se o usuário foi encontrado
+            if (!usuario) {
+                console.error("Usuário não encontrado!");
+                throw new Error("Usuário não encontrado");
+            }
 
+            // Verificar se a senha é válida
+            const senhaValida = await bcrypt.compare(password, usuario.password);
+            if (!senhaValida) {
+                console.error("Senha inválida!");
+                throw new Error("Senha inválida");
+            }
 
-ServiceLogin.post('/login', async (request, response) => {
-
-    const body = request.body;
-    const auth = new LoginController();
-    const dados = await auth.login(body);
-
-    if (dados) {
-        const token = jwt.sign(dados, process.env.APP_KEY_TOKEN, { expiresIn: '1h' })
-        return response.status(200).json({
-            token: token
-        })
+            // Retornar dados do usuário (sem expor a senha)
+            return { firstname: usuario.firstname, email: usuario.email };
+        } catch (error) {
+            console.error("Erro na autenticação:", error.message);
+            throw error;
+        }
     }
-    return response.status(401).json({
-        message: "login ou senha incorretos"
-    })
+}
 
-})
-
-module.exports = ServiceLogin;
+module.exports = new ServiceLogin();
