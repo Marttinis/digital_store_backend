@@ -24,7 +24,7 @@ LoginRotas.post('/login', async (request, response) => {
         return response.status(200).json({ token });
     } catch (error) {
         console.error("Erro no login:", error.message);
-        return response.status(401).json({ message: "Credenciais inválidas merda" });
+        return response.status(401).json({ message: "Login ou senha incorretos" });
     }
 });
 

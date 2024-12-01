@@ -23,7 +23,7 @@ class ServiceLogin {
             // Retornar dados do usuário (sem expor a senha)
             return { firstname: usuario.firstname, email: usuario.email };
         } catch (error) {
-            console.error("Erro na autenticação:", error.message);
+            console.error("Erro na autenticação ServiceLogin:", error.message);
             throw error;
         }
     }

@@ -9,15 +9,15 @@ class LoginController {
             const usuario = await ServiceLogin.authenticate({email, password});
 
             // Verificar se a resposta do authenticate é válida
-            console.log("Usuário autenticado:");
+            console.log("Usuário autenticado");
 
             // Retorne apenas os dados relevantes para o JWT
             return { firstname: usuario.firstname, email: usuario.email };
 
 
         } catch (error) {
-            console.error("Erro na autenticação:", error.message); // Adicione o log do erro
-            throw new Error("Credenciais inválidas poha");
+            console.error("Erro na autenticação LoginController:", error.message); // Adicione o log do erro
+            throw new Error("Credenciais inválidas");
         }
     }
 }
