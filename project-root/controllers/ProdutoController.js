@@ -31,8 +31,9 @@ class ProdutoController {
             include: [
                 { model: ImgDoProdutoModel, as: 'imagens' , attributes: ["enabled" , "path"]  },
                 { model: OpcaoDoProdutoModel, as: 'opcao' , attributes:["title", "shape", "radius", "type", "values"] },
-                { model: CategoriaModel, as: "categorias", attributes:["name", "slug"]}
+                { model: CategoriaModel, as: "categorias" , attributes:["name", "slug"]}
             ],
+            
 
 
 
@@ -130,7 +131,7 @@ class ProdutoController {
         const transaction = await connection.transaction(); // Iniciar transação
         try {
             const id = request.params.id;
-            const {imagens, opcoes, categorias, ...body } = request.body;
+            const {imagens, opcao, categorias, ...body } = request.body;
     
             // Validação dos campos obrigatórios
             if (!body.name || !body.slug || !body.price || !body.price_with_discount) {
@@ -150,30 +151,25 @@ class ProdutoController {
             // Atualizar imagens relacionadas
             if (imagens && imagens.length > 0) {
                 for (const img of imagens) {
-                    await ImgDoProdutoModel.update(img, { 
-                        where: { product_id: id }, transaction 
-                    });
+                    await ImgDoProdutoModel.update(
+                        { enabled: img.enabled, path: img.path },
+                        { where: { product_id: id, id: img.id }, transaction }
+                    );
                 }
             }
+           
     
             // Atualizar opções relacionadas
-            if (opcoes && opcoes.length > 0) {
-                for (const opcao of opcoes) {
-                    await OpcaoDoProdutoModel.update(opcao, { 
-                        where: { product_id: id }, transaction 
-                    });
+            if (opcao && opcao.length > 0) {
+                for (const option of opcao) {
+                    await OpcaoDoProdutoModel.update(
+                        {title: option.title, shape: option.shape, radius: option.radius, type: option.type, values: option.values},  
+                        {where: { product_id: id, id: option.id }, transaction}
+                    );
                 }
             }
     
-            // Atualizar categorias relacionadas
-            if (categorias && categorias.length > 0) {
-                for (const categoria of categorias) {
-                    await CategoriaModel.update(categoria, { 
-                        where: { product_id: id }, transaction 
-                    });
-                }
-            }
-    
+       
             // Finalizar transação
             await transaction.commit();
     
