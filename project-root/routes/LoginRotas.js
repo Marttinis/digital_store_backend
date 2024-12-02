@@ -19,7 +19,7 @@ LoginRotas.post('/login', async (request, response) => {
         const auth = new LoginController();
         const dados = await auth.login({ email, password });
 
-        const token = jwt.sign(dados, process.env.APP_KEY_TOKEN, { expiresIn: '1h' });
+        const token = jwt.sign(dados, process.env.APP_KEY_TOKEN, { expiresIn: '3h' });
 
         return response.status(200).json({ token });
     } catch (error) {
