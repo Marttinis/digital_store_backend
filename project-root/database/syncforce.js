@@ -14,7 +14,7 @@ async function syncDatabase() {
     await connection.query('SET FOREIGN_KEY_CHECKS = 0', { raw: true });
 
     // Sincroniza o banco de dados com força
-    await connection.sync({ force: true })
+    await connection.sync({ alter: true })
      .then(()=>{
       console.log('Tabelas sincronizadas com sucesso.');
      })

@@ -11,7 +11,9 @@ const ProdutoCategoriaModel= connection.define("ProdutoCategoriaModel",{
         references: {
             model: ProdutoModel,
             key: 'id'
-        }
+        },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
     },
 
     category_id: {
@@ -20,7 +22,10 @@ const ProdutoCategoriaModel= connection.define("ProdutoCategoriaModel",{
         references: {
             model: CategoriaModel,
             key: 'id'
-        }
+        }, 
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+        
 
     }
 

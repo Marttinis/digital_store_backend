@@ -10,7 +10,8 @@ const ImgDoProdutoModel = connection.define("ImgDoProdutoModel", {
             model: ProdutoModel,
             key: 'id'
         },
-        onDelete: 'CASCADE' //para deletar a imagem quando for deletado o produto relacionado na tabela produtos
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE' //para deletar a imagem quando for deletado o produto relacionado na tabela produtos
     },
 
     enabled: {

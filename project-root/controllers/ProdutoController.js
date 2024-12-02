@@ -1,3 +1,4 @@
+const connection = require('../config/connection')
 const ProdutoModel = require('../models/ProdutoModel');
 const CategoriaModel = require('../models/CategoriaModel');
 const ImgDoProdutoModel = require('../models/ImgDoProdutoModel');
@@ -7,7 +8,7 @@ const ProdutoCategoriaModel = require('../models/ProdutoCategoriaModel');
 
 
 ProdutoModel.hasMany(ImgDoProdutoModel, { foreignKey: "product_id", as: "imagens" })
-ProdutoModel.hasOne(OpcaoDoProdutoModel, { foreignKey: "product_id", as: "opcao" })
+ProdutoModel.hasMany(OpcaoDoProdutoModel, { foreignKey: "product_id", as: "opcao" })
 ProdutoModel.belongsToMany(CategoriaModel, {
     through: ProdutoCategoriaModel,
     foreignKey: "product_id",
@@ -26,10 +27,11 @@ class ProdutoController {
 
         //o include inclui as informações da tabela de imagens do produto
         const dados = await ProdutoModel.findAll({
+            attributes: ["name", "slug", "stock", "description", "price", "price_with_discount"],
             include: [
-                { model: ImgDoProdutoModel, as: 'imagens' },
-                { model: OpcaoDoProdutoModel, as: 'opcao' },
-                { model: CategoriaModel, as: "categorias"}
+                { model: ImgDoProdutoModel, as: 'imagens' , attributes: ["enabled" , "path"]  },
+                { model: OpcaoDoProdutoModel, as: 'opcao' , attributes:["title", "shape", "radius", "type", "values"] },
+                { model: CategoriaModel, as: "categorias", attributes:["name", "slug"]}
             ],
 
 
@@ -124,40 +126,69 @@ class ProdutoController {
     }
 
     async atualizar(request, response) {
+
+        const transaction = await connection.transaction(); // Iniciar transação
         try {
-
             const id = request.params.id;
-            const body = request.body;
-
-            //validação dos campos
+            const {imagens, opcoes, categorias, ...body } = request.body;
+    
+            // Validação dos campos obrigatórios
             if (!body.name || !body.slug || !body.price || !body.price_with_discount) {
                 return response.status(400).json({
                     message: "Todos os campos obrigatórios devem ser preenchidos corretamente."
                 });
             }
-
-            //atualização do cadastro
-            const [rowsUpdated] = await ProdutoModel.update(body, { where: { id } })
-
-
-            // Verificar se o registro foi encontrado
-            if (rowsUpdated === 0) {
-                return response.status(404).json({
-                    message: "Produto não encontrado."
-                });
+    
+            // Atualizar produto
+            const produto = await ProdutoModel.update(body,{ where: { id }, transaction });
+    
+            if (!produto[0]) {
+                await transaction.rollback();
+                return response.status(404).json({ message: "Produto não encontrado." });
             }
-
-            //retorno de sucesso
-            return response.status(204).json();
-
-
+    
+            // Atualizar imagens relacionadas
+            if (imagens && imagens.length > 0) {
+                for (const img of imagens) {
+                    await ImgDoProdutoModel.update(img, { 
+                        where: { product_id: id }, transaction 
+                    });
+                }
+            }
+    
+            // Atualizar opções relacionadas
+            if (opcoes && opcoes.length > 0) {
+                for (const opcao of opcoes) {
+                    await OpcaoDoProdutoModel.update(opcao, { 
+                        where: { product_id: id }, transaction 
+                    });
+                }
+            }
+    
+            // Atualizar categorias relacionadas
+            if (categorias && categorias.length > 0) {
+                for (const categoria of categorias) {
+                    await CategoriaModel.update(categoria, { 
+                        where: { product_id: id }, transaction 
+                    });
+                }
+            }
+    
+            // Finalizar transação
+            await transaction.commit();
+    
+            // Retorno de sucesso
+            return response.status(204).json({
+                message: "Produto e associações atualizados com sucesso."
+            });
+    
         } catch (error) {
+            await transaction.rollback(); // Reverter alterações no caso de erro
             console.error(error);
             return response.status(500).json({
                 message: "Erro ao atualizar Produto",
                 error: error.message
             });
-
         }
     }
 

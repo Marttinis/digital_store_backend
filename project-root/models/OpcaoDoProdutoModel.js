@@ -11,7 +11,8 @@ const OpcaoDoProdutoModel= connection.define("OpcaoDoProdutoModel",{
             model: ProdutoModel,
             key: 'id'
         },
-        onDelete: 'CASCADE'
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
     },
 
     title: {
