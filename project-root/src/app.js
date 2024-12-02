@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
     return res.status(200).send("Server está funcionando");
 });
 
-// Rotas públicas e privadas
+// Rotas
 app.use('/v1/usuarios', UsuariosRotas)
 app.use('/v1/user', LoginRotas)
 app.use('/v1/produtos', ProdutoRotas)
