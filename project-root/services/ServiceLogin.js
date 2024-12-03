@@ -16,7 +16,7 @@ require('dotenv').config();
 
         // Verificar se o usuário foi encontrado
         if (!usuario) {
-            return res.status(401).json({ message: 'Email invalido'});
+            return res.status(401).json({ message: 'Email inválido'});
         }
 
         // Verificar se a senha é válida
