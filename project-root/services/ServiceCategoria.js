@@ -55,7 +55,7 @@ async function PostCategoria(request, response) {
         //Criação da
         await CategoriaModel.create(body);
 
-        return response.status(200).json({
+        return response.status(201).json({
             message: "Categoria cadastrada com sucesso",
           
         });

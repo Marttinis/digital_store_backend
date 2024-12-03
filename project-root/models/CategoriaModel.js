@@ -16,7 +16,7 @@ const CategoriaModel = connection.define(
         use_in_menu:{
             type: DataTypes.BOOLEAN,
             allowNull: true,
-            defaultValue: false
+            defaultValue: 0
 
         }
     },{

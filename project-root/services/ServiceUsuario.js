@@ -89,15 +89,13 @@ async function atualizar(request, response) {
         }
 
         //atualização do cadastro
-        const [rowsUpdated] = await UsuarioModel.update(body, { where: { id } })
+        const [rowsUpdated] = await UsuarioModel.update(body, { 
+            where: { id },
+            individualHooks: true
+         });
 
 
-        // Verificar se o registro foi encontrado
-        if (rowsUpdated === 0) {
-            return response.status(404).json({
-                message: "Usuário não encontrado."
-            });
-        }
+       
 
         //retorno de sucesso
         return response.status(204).json();

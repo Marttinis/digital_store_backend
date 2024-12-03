@@ -4,14 +4,14 @@ require('dotenv').config()
 
 test('Authenticate Testing', async ()=>{
     const response = await api.post('/v1/user/login',{
-        email: 'martins@gmail.com',
-        password: 'gab123'
+        email: 'gabriel@gmail.com',
+        password: '1471'
     });
     const verify = jwt.verify(response.data.token, process.env.APP_KEY_TOKEN);
-    console.log(response.data);
-    // )
+    // console.log(verify);
+  
 
-    expect(verify.firstname).toBe('Ribamar')
+    expect(verify.firstname).toBe('Paulo')
     
     
 
