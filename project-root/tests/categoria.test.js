@@ -134,13 +134,13 @@ describe('Testes de exclusão de categorias: ', () => {
 
   test('Deve retornar um 404 pois o ID não foi encontrado', async () => {
     const response = await api.delete('/v1/categorias/169', {
-        headers: {
-            token: authToken,
-        },
-        validateStatus: (status) => true,
+      headers: {
+        token: authToken,
+      },
+      validateStatus: (status) => true,
     });
 
     expect(response.status).toBe(404);
 
-})
+  })
 })

@@ -130,7 +130,7 @@ async function putProduto(request, response) {
     const transaction = await connection.transaction(); // Iniciar transação
     try {
         const id = request.params.id;
-        const {imagens, opcao, categorias, ...body } = request.body;
+        const {imagens, opcao, ...body } = request.body;
 
         // Validação dos campos obrigatórios
         if (!body.name || !body.slug || !body.price || !body.price_with_discount) {
@@ -173,9 +173,7 @@ async function putProduto(request, response) {
         await transaction.commit();
 
         // Retorno de sucesso
-        return response.status(204).json({
-            message: "Produto e associações atualizados com sucesso."
-        });
+        return response.status(204).json();
 
     } catch (error) {
         await transaction.rollback(); // Reverter alterações no caso de erro
