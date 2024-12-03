@@ -6,7 +6,7 @@ let authToken;
 // Obter o token de autenticação para testar rotas protegidas
 beforeAll(async () => {
   const response = await api.post('/v1/user/login', {
-    email: 'gabriel@gmail.com',
+    email: 'Rebeca@gmail.com',
     password: '1471'
   });
   authToken = response.data.token;
@@ -48,8 +48,8 @@ describe('Teste de criação de categoria: ', () => {
   test('Cadastro de Categoria', async () => {
     const response = await api.post('/v1/categorias/',
       {
-        name: "Tenis",
-        slug: "tenis",
+        name: "Variedades",
+        slug: "varieadades",
         use_in_menu: 1
       },
       {
@@ -123,7 +123,7 @@ describe('Testes de atualização da Categoria:', () => {
 
 describe('Testes de exclusão de categorias: ', () => {
   test('Deletando uma Categoria', async () => {
-    const response = await api.delete('/v1/categorias/4', {
+    const response = await api.delete('/v1/categorias/6', {
       headers: {
         token: authToken,
       },

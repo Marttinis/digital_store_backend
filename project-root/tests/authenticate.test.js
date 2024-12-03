@@ -32,7 +32,7 @@ describe('Teste de login:', () => {
 
     test('deve retornar 200 e um token se o login for bem-sucedido', async () => {
         const response = await api.post('/v1/user/login', {
-            email: 'gabriel@gmail.com',
+            email: 'Rebeca@gmail.com',
             password: '1471'
         });
         const verify = jwt.verify(response.data.token, process.env.APP_KEY_TOKEN);

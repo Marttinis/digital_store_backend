@@ -1,12 +1,12 @@
 const connection = require('../config/connection');
 
 // Importação dos modelos
-require('../../models/UsuariosModel');
-require('../../models/CategoriaModel');
-require('../../models/ProdutoModel');
-require('../../models/ImgDoProdutoModel');
-require('../../models/OpcaoDoProdutoModel');
-require('../../models/ProdutoCategoriaModel');
+require('../models/UsuariosModel');
+require('../models/CategoriaModel');
+require('../models/ProdutoModel');
+require('../models/ImgDoProdutoModel');
+require('../models/OpcaoDoProdutoModel');
+require('../models/ProdutoCategoriaModel');
 
 async function syncDatabase() {
   try {

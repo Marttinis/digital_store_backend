@@ -6,7 +6,7 @@ let authToken;
 // Obter o token de autenticação para testar rotas protegidas
 beforeAll(async () => {
   const response = await api.post('/v1/user/login', {
-    email: 'gabriel@gmail.com',
+    email: 'Rebeca@gmail.com',
     password: '1471'
   });
   authToken = response.data.token;
@@ -49,10 +49,10 @@ describe('Teste de criação do produto:', () => {
 
       {//criação do produto, suas imagens e opções e as categorias relacionadas ao produto
         enabled: 1,
-        name: "Calça",
-        slug: "calça",
+        name: "Calça Preta",
+        slug: "calça preta",
         stock: 500,
-        description: "Descrição da calça",
+        description: "Descrição da calça preta",
         price: 69.90,
         price_with_discount: 39.90,
         imagens: [
@@ -249,7 +249,7 @@ describe('Testes de atualização do produto', ()=>{
 
 describe('Testes de exclusão dos Produtos', ()=>{
   test('Deletando um Produto', async () => {
-    const response = await api.delete('/v1/produtos/6', {
+    const response = await api.delete('/v1/produtos/4', {
       headers: {
         token: authToken,
       },

@@ -1,8 +1,8 @@
 const express = require("express");
-const UsuariosRotas = require("../routes/UsuariosRotas");
-const LoginRotas = require("../routes/LoginRotas");
-const ProdutoRotas = require("../routes/ProdutoRotas");
-const CategoriaRotas = require("../routes/CategoriaRotas");
+const UsuariosRotas = require("../src/routes/UsuariosRotas");
+const LoginRotas = require("../src/routes/LoginRotas");
+const ProdutoRotas = require("../src/routes/ProdutoRotas");
+const CategoriaRotas = require("../src/routes/CategoriaRotas");
 const cors = require('cors');
 
 const app = express();

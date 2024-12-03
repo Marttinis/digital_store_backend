@@ -5,24 +5,24 @@ require('dotenv').config();
 const authMiddleware = (request,response, next) => {
     
 
-    let auth = false
+    // let auth = false
 
-    if(request.headers.token){
-        const {token} = request.headers;
+    // if(request.headers.token){
+    //     const {token} = request.headers;
 
-        try{
-            jwt.verify(token, process.env.APP_KEY_TOKEN);
-            auth = true;
+    //     try{
+    //         jwt.verify(token, process.env.APP_KEY_TOKEN);
+    //         auth = true;
 
-        } catch(e){
-            return response.status(403).send(e);
-        }
+    //     } catch(e){
+    //         return response.status(403).send(e);
+    //     }
 
-    }
+    // }
 
-    if (auth === false){
-        return response.status(403).send("Não autorizado")
-    }
+    // if (auth === false){
+    //     return response.status(403).send("Não autorizado")
+    // }
     
     next();
 

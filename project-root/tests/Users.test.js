@@ -6,7 +6,7 @@ let authToken;
 // Obter o token de autenticação para testar rotas protegidas
 beforeAll(async () => {
     const response = await api.post('/v1/user/login', {
-        email: 'gabriel@gmail.com',
+        email: 'Rebeca@gmail.com',
         password: '1471'
     });
     authToken = response.data.token;
@@ -19,7 +19,7 @@ beforeAll(async () => {
 describe('Testes de consulta do usuario por ID:', () => {
     test('Consultando um Usuario por ID', async () => {
 
-        const response = await api.get('/v1/usuarios/5', {
+        const response = await api.get('/v1/usuarios/2', {
             headers: {
                 token: authToken,
             },
@@ -99,7 +99,7 @@ describe('Testes de atualização do Usuario:', () => {
 
     test('Deve retornar um status 500 pois o id passado na url é diferente do user', async () => {
         try {
-            const response = await api.put('v1/usuarios/4', {
+            const response = await api.put('v1/usuarios/78', {
                 id: 3,
                 firstname: "Roberto",
                 surname: "Santos",
@@ -122,7 +122,7 @@ describe('Testes de atualização do Usuario:', () => {
 describe('Testes de exclusão do Usuario:', () => {
     test('Deletando um Usuario', async () => {
 
-        const response = await api.delete('/v1/usuarios/2', {
+        const response = await api.delete('/v1/usuarios/4', {
             headers: {
                 token: authToken,
             },
